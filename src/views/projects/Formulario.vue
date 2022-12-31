@@ -1,6 +1,5 @@
 <template>
-    <section class="projetos">
-        <h1 class="title">Projetos</h1>
+    <section>
         <form @submit.prevent="salvar">
             <div class="field">
                 <label for="nomeDoProjeto" class="label">Nome do projeto</label>
@@ -14,6 +13,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { useStore } from '@/store';
+import { ALTERA_PROJETO, ADICIONA_PROJETO } from '@/store/tipo-mutacoes';
 
 export default defineComponent({
     name: 'Formulario',
@@ -36,12 +36,12 @@ export default defineComponent({
     methods: {
         salvar () {
             if (this.id) {
-                this.store.commit('ALTERA_PROJETO', {
+                this.store.commit(ALTERA_PROJETO, {
                     id: this.id,
                     nome: this.nomeDoProjeto
                 })
             } else {
-                this.store.commit('ADICIONA_PROJETO', this.nomeDoProjeto)
+                this.store.commit(ADICIONA_PROJETO, this.nomeDoProjeto)
             }
             this.nomeDoProjeto = '';
             this.$router.push('/projetos');
@@ -55,9 +55,3 @@ export default defineComponent({
     }
 });
 </script>
-
-<style scoped>
-.projetos {
-    padding: 1.25rem;
-}
-</style>
